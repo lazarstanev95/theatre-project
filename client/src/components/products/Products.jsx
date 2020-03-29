@@ -65,7 +65,7 @@ class Products extends Component {
         if (!isLoaded) {
             return <Loader/>
         }
-        if(products.length !== 0) {
+        if(products && products.length) {
             return products.map((product, i) => {
                 return <Product products={product} key={i} onDelete={this.handleDelete}/>
             })
