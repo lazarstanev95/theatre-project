@@ -25,22 +25,10 @@ app.use(cors());
 app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname + '/client/build/index.html'));
-    })
-}
 
 app.use('/products', productRoutes);
 app.use('/user', userRoutes);
 app.use('/image/', imageRoutes);
-
-app.use((req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
-    next(error);
-});
 
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
@@ -52,6 +40,13 @@ app.use((error, req, res, next) => {
 });
 
 const port = process.env.PORT || 4000;
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static( 'client/build' ));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/client/build/index.html'));
+    })
+}
 
 app.listen(port, () => {
     console.log('Server is running on Port:', port);
