@@ -240,7 +240,7 @@ exports.post_user_reset_password = (req, res, next) => {
                     subject: 'Password reset',
                     html: `
                         <p>You requested a password reset</p>
-                        <p>Click this <a href="http://localhost:3000/new-password/${token}">link</a> to set a new password.</p>
+                        <p>Click this <a href="https://theatre-project.herokuapp.com/new-password/${token}">link</a> to set a new password.</p>
                     `
                 });
             })
